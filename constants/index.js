@@ -42,7 +42,11 @@ export const PROJECTS = [
 
 // Contact Section
 export const CONTACT = {
+<<<<<<< HEAD
   email: "sheikhrahul8581@gmail.com",
+=======
+  email: "sheikhrahul8581@gmail.com.com",
+>>>>>>> b4ffedc1469d14363c8c2c5ae554eb7c66323611
   phone: "+91 1234567890",
   location: "India",
   github: "https://github.com/yourusername",
