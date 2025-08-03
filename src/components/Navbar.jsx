@@ -14,7 +14,7 @@ const Navbar = () => {
       <div className="flex flex-shrink-0 items-center">
         <a href="/" aria-label="Home">
           {/* Stylish SR Logo */}
-          <span className="mx-2 font-extrabold text-3xl tracking-tight text-stone-900 select-none" style={{letterSpacing: '0.1em'}}>
+          <span className="mx-2 font-extrabold text-3xl tracking-tight text-white select-none" style={{letterSpacing: '0.1em'}}>
             SR
           </span>
         </a>

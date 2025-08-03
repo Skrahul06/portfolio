@@ -52,22 +52,30 @@ const projects = [
 ];
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: i => ({
-    opacity: 1,
+  offscreen: {
+    y: 50,
+    opacity: 0,
+    scale: 0.95
+  },
+  onscreen: {
     y: 0,
+    opacity: 1,
+    scale: 1,
     transition: {
-      delay: i * 0.15,
-      duration: 0.7,
-      ease: 'easeOut'
+      type: "spring",
+      bounce: 0.4,
+      duration: 0.8
     }
-  }),
-  hover: {
-    y: -5,
-    boxShadow: '0 10px 30px rgba(0,0,0,0.6)',
+  }
+};
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
     transition: {
-      duration: 0.3,
-      ease: 'easeInOut'
+      staggerChildren: 0.2,
+      delayChildren: 0.3
     }
   }
 };
@@ -76,41 +84,69 @@ const Projects = () => {
   const getTechIcon = (tech) => {
     const Icon = tech.icon;
     return (
-      <div key={tech.name} className="flex items-center space-x-1 bg-stone-800 px-2 py-1 rounded-full text-xs text-stone-300">
+      <motion.div 
+        key={tech.name} 
+        className="flex items-center space-x-1 bg-stone-800 px-2 py-1 rounded-full text-xs text-stone-300"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
         <Icon className="w-3 h-3" />
         <span>{tech.name}</span>
-      </div>
+      </motion.div>
     );
   };
 
   return (
-    <section id="projects" className="py-20 min-h-screen  flex flex-col items-center justify-center">
+    <section id="projects" className="py-20 min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
       <motion.h2
         className="text-4xl md:text-5xl font-bold mb-16 text-center text-white"
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: -50 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.6 }}
       >
-        My <span className="text-blue-600">Projects</span>
+        My <span className="text-blue-400">Projects</span>
       </motion.h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 w-full max-w-6xl px-4">
+      <motion.div 
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 w-full max-w-6xl px-4"
+        variants={container}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-100px" }}
+      >
         {projects.map((project, i) => (
           <motion.div
             key={project.title}
             className="bg-black text-stone-200 rounded-xl overflow-hidden border border-stone-600 hover:border-blue-600 transition-all"
-            custom={i}
-            initial="hidden"
-            whileInView="visible"
-            whileHover="hover"
-            viewport={{ once: true, margin: "-100px" }}
             variants={cardVariants}
+            initial="offscreen"
+            whileInView="onscreen"
+            viewport={{ once: true, margin: "-50px" }}
+            whileHover={{ 
+              y: -5,
+              boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+              transition: { duration: 0.3 }
+            }}
           >
             <div className="p-6">
               <div className="flex justify-between items-start mb-4">
-                <h3 className="text-xl font-bold text-white">{project.title}</h3>
-                <div className="flex space-x-2">
+                <motion.h3 
+                  className="text-xl font-bold text-white"
+                  initial={{ opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2, duration: 0.5 }}
+                >
+                  {project.title}
+                </motion.h3>
+                <motion.div 
+                  className="flex space-x-2"
+                  initial={{ opacity: 0, x: 10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3, duration: 0.5 }}
+                >
                   {project.demo !== "#" && (
                     <a
                       href={project.demo}
@@ -133,20 +169,32 @@ const Projects = () => {
                       <SiGithub className="w-4 h-4" />
                     </a>
                   )}
-                </div>
+                </motion.div>
               </div>
 
-              <p className="text-stone-400 mb-4">
+              <motion.p 
+                className="text-stone-400 mb-4"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4, duration: 0.5 }}
+              >
                 {project.description}
-              </p>
+              </motion.p>
 
-              <div className="flex flex-wrap gap-2 mt-4">
+              <motion.div 
+                className="flex flex-wrap gap-2 mt-4"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5, duration: 0.5 }}
+              >
                 {project.tech.map(tech => getTechIcon(tech))}
-              </div>
+              </motion.div>
             </div>
           </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 };
