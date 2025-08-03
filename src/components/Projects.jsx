@@ -1,18 +1,17 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { 
-  SiNodedotjs, 
-  SiExpress, 
-  SiMongodb, 
-  SiJavascript, 
-  SiPhp, 
-  SiLaravel, 
+import {
+  SiNodedotjs,
+  SiExpress,
+  SiMongodb,
+  SiJavascript,
+  SiPhp,
+  SiLaravel,
   SiBootstrap,
   SiGithub,
-  SiMysql,
-  
+  SiMysql
 } from 'react-icons/si';
-import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaExternalLinkAlt } from 'react-icons/fa';
 
 const projects = [
   {
@@ -38,7 +37,6 @@ const projects = [
     demo: "#",
     code: "#"
   },
-
   {
     title: "E-Commerce Platform",
     description: "A full-featured e-commerce platform with user authentication, product catalog, and payment integration.",
@@ -50,7 +48,7 @@ const projects = [
     ],
     demo: "#",
     code: "#"
-  },
+  }
 ];
 
 const cardVariants = {
@@ -66,7 +64,7 @@ const cardVariants = {
   }),
   hover: {
     y: -5,
-    boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+    boxShadow: '0 10px 30px rgba(0,0,0,0.6)',
     transition: {
       duration: 0.3,
       ease: 'easeInOut'
@@ -75,11 +73,10 @@ const cardVariants = {
 };
 
 const Projects = () => {
-  // Get tech icon component by name
   const getTechIcon = (tech) => {
     const Icon = tech.icon;
     return (
-      <div key={tech.name} className="flex items-center space-x-1 bg-stone-100 dark:bg-stone-800 px-2 py-1 rounded-full text-xs">
+      <div key={tech.name} className="flex items-center space-x-1 bg-stone-800 px-2 py-1 rounded-full text-xs text-stone-300">
         <Icon className="w-3 h-3" />
         <span>{tech.name}</span>
       </div>
@@ -87,22 +84,22 @@ const Projects = () => {
   };
 
   return (
-    <section id="projects" className="py-20 min-h-screen flex flex-col items-center justify-center">
-      <motion.h2 
-        className="text-4xl md:text-5xl font-bold mb-16 text-center"
+    <section id="projects" className="py-20 min-h-screen  flex flex-col items-center justify-center">
+      <motion.h2
+        className="text-4xl md:text-5xl font-bold mb-16 text-center text-white"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
       >
-        My <span className="text-blue-600 dark:text-blue-400">Projects</span>
+        My <span className="text-blue-600">Projects</span>
       </motion.h2>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 w-full max-w-6xl px-4">
         {projects.map((project, i) => (
           <motion.div
             key={project.title}
-            className="bg-white dark:bg-stone-900 rounded-xl overflow-hidden shadow-lg border border-stone-200 dark:border-stone-800"
+            className="bg-black text-stone-200 rounded-xl overflow-hidden border border-stone-600 hover:border-blue-600 transition-all"
             custom={i}
             initial="hidden"
             whileInView="visible"
@@ -112,25 +109,25 @@ const Projects = () => {
           >
             <div className="p-6">
               <div className="flex justify-between items-start mb-4">
-                <h3 className="text-xl font-bold text-stone-900 dark:text-white">{project.title}</h3>
+                <h3 className="text-xl font-bold text-white">{project.title}</h3>
                 <div className="flex space-x-2">
                   {project.demo !== "#" && (
-                    <a 
-                      href={project.demo} 
-                      target="_blank" 
+                    <a
+                      href={project.demo}
+                      target="_blank"
                       rel="noopener noreferrer"
-                      className="text-stone-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                      className="text-stone-400 hover:text-blue-500 transition-colors"
                       aria-label="Live Demo"
                     >
                       <FaExternalLinkAlt className="w-4 h-4" />
                     </a>
                   )}
                   {project.code && (
-                    <a 
-                      href={project.code} 
-                      target="_blank" 
+                    <a
+                      href={project.code}
+                      target="_blank"
                       rel="noopener noreferrer"
-                      className="text-stone-500 hover:text-stone-900 dark:hover:text-white transition-colors"
+                      className="text-stone-400 hover:text-white transition-colors"
                       aria-label="View Code"
                     >
                       <SiGithub className="w-4 h-4" />
@@ -138,11 +135,11 @@ const Projects = () => {
                   )}
                 </div>
               </div>
-              
-              <p className="text-stone-600 dark:text-stone-400 mb-4">
+
+              <p className="text-stone-400 mb-4">
                 {project.description}
               </p>
-              
+
               <div className="flex flex-wrap gap-2 mt-4">
                 {project.tech.map(tech => getTechIcon(tech))}
               </div>
